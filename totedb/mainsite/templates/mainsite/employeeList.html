@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org">
+
+
+<head>
+
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no"
+          name="viewport">
+    <meta content="" name="description">
+    <meta content="" name="author">
+    <meta name="_csrf" th:content="${_csrf.token}"/>
+    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
+
+    <title>Dispatcher</title>
+
+    <!-- Custom fonts for this template-->
+    <link rel="stylesheet"
+          th:href="@{/vendor/fontawesome-free/css/all.min.css}" type="text/css">
+    <link
+            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+            rel="stylesheet">
+
+    <!-- Custom styles for this template-->
+    <link rel="stylesheet" th:href="@{/css/sb-admin-2.min.css}">
+
+    <!-- Custom styles for this page -->
+    <link rel="stylesheet"
+          th:href="@{/vendor/datatables/dataTables.bootstrap4.min.css}">
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+          rel="stylesheet">
+
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"
+            type="text/javascript"></script>
+    <script
+            src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/ScrollMagic.min.js"
+            type="text/javascript"></script>
+    <script
+            src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/animation.velocity.min.js"
+            type="text/javascript"></script>
+    <script
+            src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/animation.gsap.min.js"
+            type="text/javascript"></script>
+    <script
+            src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/debug.addIndicators.min.js"
+            type="text/javascript"></script>
+    <script
+            src="//cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"
+            type="text/javascript"></script>
+    <script
+            src="//cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TimelineMax.min.js"
+            type="text/javascript"></script>
+
+</head>
+
+<body id="page-top">
+
+<!-- Page Wrapper -->
+<div id="wrapper">
+
+    <!-- Sidebar -->
+    <ul
+            class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
+            id="accordionSidebar">
+
+        <!-- Sidebar - Brand -->
+        <a
+                class="sidebar-brand d-flex align-items-center justify-content-center"
+                href="/">
+            <div class="sidebar-brand-text mx-3">Tote DB</div>
+        </a>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider my-0">
+
+        <!-- Nav Item - Dashboard -->
+        <li class="nav-item active"><a class="nav-link" href="/"> <i
+                class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider">
+
+        <!-- Heading -->
+        <div class="sidebar-heading">Interface</div>
+
+        <!-- Nav Item - Pages Collapse Menu -->
+        <li class="nav-item"><a aria-controls="collapseTwo" aria-expanded="true"
+                                class="nav-link collapsed" data-target="#collapseTwo"
+                                data-toggle="collapse" href="#"> <i
+                class="fas fa-fw fa-address-book"></i> <span>Employees</span>
+        </a>
+            <div aria-labelledby="headingTwo" class="collapse" data-parent="#accordionSidebar"
+                 id="collapseTwo">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="/employees/list">Employee List</a>
+                </div>
+            </div>
+        </li>
+
+        <!-- Nav Item - Utilities Collapse Menu -->
+        <li class="nav-item"><a aria-controls="collapseUtilities" aria-expanded="true"
+                                class="nav-link collapsed" data-target="#collapseUtilities"
+                                data-toggle="collapse" href="#"> <i
+                class="fas fa-fw fa-wrench"></i> <span>Utilities</span>
+        </a>
+            <div aria-labelledby="headingUtilities" class="collapse"
+                 data-parent="#accordionSidebar" id="collapseUtilities">
+                <div class="bg-white py-2 collapse-inner rounded">
+                    <a class="collapse-item" href="/bettingAreas/list">Betting Areas</a>
+                    <a class="collapse-item" href="/machines/machineMasterList">Machine Master List</a>
+                </div>
+            </div>
+        </li>
+
+        <!-- Divider -->
+        <hr class="sidebar-divider d-none d-md-block">
+
+        <!-- Sidebar Toggler (Sidebar) -->
+        <div class="text-center d-none d-md-inline">
+            <button class="rounded-circle border-0" id="sidebarToggle"></button>
+        </div>
+
+    </ul>
+    <!-- End of Sidebar -->
+
+    <!-- Content Wrapper -->
+    <div class="d-flex flex-column" id="content-wrapper">
+
+        <!-- Main Content -->
+        <div id="content">
+
+            <!-- Topbar -->
+            <nav
+                    class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+
+                <!-- Sidebar Toggle (Topbar) -->
+                <button class="btn btn-link d-md-none rounded-circle mr-3"
+                        id="sidebarToggleTop">
+                    <i class="fa fa-bars"></i>
+                </button>
+
+
+                <!-- Topbar Navbar -->
+                <ul class="navbar-nav ml-auto">
+
+                    <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                    <li class="nav-item dropdown no-arrow d-sm-none"><a
+                            aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle"
+                            data-toggle="dropdown" href="#" id="searchDropdown"
+                            role="button"> <i class="fas fa-search fa-fw"></i>
+                    </a> <!-- Dropdown - Messages -->
+                        <div
+                                aria-labelledby="searchDropdown"
+                                class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in">
+                            <form action="" class="form-inline mr-auto w-100 navbar-search">
+                                <div class="input-group">
+                                    <input aria-describedby="basic-addon2"
+                                           aria-label="Search"
+                                           class="form-control bg-light border-0 small" placeholder="Search for..."
+                                           type="text">
+                                    <div class="input-group-append">
+                                        <button class="btn btn-primary" type="button">
+                                            <i class="fas fa-search fa-sm"></i>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </li>
+
+                    <!-- Nav Item - User Information -->
+                    <li class="nav-item dropdown no-arrow"><a
+                            aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle"
+                            data-toggle="dropdown" href="#" id="userDropdown"
+                            role="button"> <span
+                            class="mr-2 d-none d-lg-inline text-gray-600 small"
+                            th:text="${#authentication.name}"></span>
+                    </a> <!-- Dropdown - User Information -->
+                        <div
+                                aria-labelledby="userDropdown"
+                                class="dropdown-menu dropdown-menu-right shadow animated--grow-in">
+                            <a class="dropdown-item" href="#"> <i
+                                    class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i> Profile
+                            </a> <a class="dropdown-item" href="#"> <i
+                                class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Settings
+                        </a> <a class="dropdown-item" href="#"> <i
+                                class="fas fa-list fa-sm fa-fw mr-2 text-gray-400"></i>
+                            Activity Log
+                        </a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" data-target="#logoutModal" data-toggle="modal"
+                               href="#"> <i
+                                    class="fas fa-sign-out-alt fa-sm fa-fw mr-2 text-gray-400"></i>
+                                Logout
+                            </a>
+                        </div>
+                    </li>
+
+                </ul>
+
+            </nav>
+            <!-- End of Topbar -->
+
+            <!-- Begin Page Content -->
+            <div class="container-fluid">
+
+                <!-- Page Heading -->
+                <div
+                        class="d-sm-flex align-items-center justify-content-between mb-4">
+                    <h1 class="h3 mb-0 text-gray-800">Employee List</h1>
+             
+                </div>
+
+                <!-- Content Row -->
+
+                <div class="row w-100">
+
+                    <div class="card shadow mb-4 w-100">
+                        <div class="card-header py-3">
+                            <h6 class="m-0 font-weight-bold text-primary">Employees</h6>
+                        </div>
+                        <div class="card-body">
+                            <div class="table-responsive">
+                                <table cellspacing="0" class="table table-bordered" id="dataTable"
+                                       width="100%">
+                                    <thead>
+                                    <tr>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Email</th>
+                                        <th>Phone Number</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </thead>
+                                    <tfoot>
+                                    <tr>
+                                        <th>First Name</th>
+                                        <th>Last Name</th>
+                                        <th>Email</th>
+                                        <th>Phone Number</th>
+                                        <th>Action</th>
+                                    </tr>
+                                    </tfoot>
+                                    <tbody>
+                                    <tr th:each="tempEmployee : ${employees}">
+                                        <td th:text="${tempEmployee.firstName}"/>
+                                        <td th:text="${tempEmployee.lastName}"/>
+                                        <td th:text="${tempEmployee.email}"/>
+                                        <td th:text="${tempEmployee.phoneNumber}"/>
+                                        <td><a
+                                                class="btn btn-primary btn-sm"
+                                                href="#"
+                                                id="editEmployeeButton"
+                                                th:onclick="'javascript:openEmployeeModal(\'' + ${tempEmployee.id} + '\');'">
+                                            <i class="material-icons">&#xE254;</i>
+                                        </a>
+
+                                            <a
+                                                    class="btn btn-danger btn-sm"
+                                                    onclick="if (!(confirm('Are you sure you want to delete?'))) return false"
+                                                    th:href="@{/employees/delete(employeeId=${tempEmployee.id})}">
+                                                <i class="material-icons">&#xE872;</i>
+                                            </a>
+
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+
+                <div class="row">
+                    <button class="btn btn-primary btn-lg"
+
+                            id="addEmployeeButton"
+                            onclick="javascript:openEmployeeModal('-1');">Add Employee
+                    </button>
+
+                </div>
+
+                <div id="employeeModalHolder" th:fragment="modalEditEmployee">
+                </div>
+
+                <div aria-hidden="true" aria-labelledby="myModalLabel" class="modal fade"
+                     id="modalEmployeeForm" role="dialog" tabindex="-1"
+                     th:fragment="modalEditEmployee"
+                >
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header text-center">
+                                <h4 class="modal-title w-100 font-weight-bold" id="add-employee-title">Add
+                                    Employee</h4>
+                            </div>
+                            <form
+                                  th:action="@{/employees/save}"
+                                  th:method="POST"
+                                  th:object="${employee}">
+                                <div class="form-row">
+                                    <div
+                                            class="form-group col-md-6 justify-content-center cold-md-offset-3"
+                                            style="float: none; margin: auto;">
+                                        <input type="hidden" th:field="*{id}">
+                                        <input class="form-control" id="defaultForm-first-name"
+                                               th:field="*{firstName}" type="text"> <label
+                                            data-error="wrong" data-success="right"
+                                            for="defaultForm-first-name">First Name</label> <input
+                                            class="form-control validate" id="defaultForm-last-name"
+                                            th:field="*{lastName}" type="text">
+                                        <label data-error="wrong" data-success="right"
+                                               for="defaultForm-last-name">Last Name</label> <input
+                                            class="form-control validate" id="defaultForm-email" th:field="*{email}"
+                                            type="text"> <label
+                                            data-error="wrong" data-success="right"
+                                            for="defaultForm-email">Email</label> <input class="form-control validate"
+                                                                                         id="defaultForm-phone-number"
+                                                                                         th:field="*{phoneNumber}"
+                                                                                         type="text"> <label
+                                            data-error="wrong" data-success="right"
+                                            for="defaultForm-phone-number">Phone Number</label>
+
+
+                                    </div>
+
+                                </div>
+                                <div class="modal-footer d-flex justify-content-center">
+                                    <button class="btn btn-primary" id="add-employee-button"
+                                            type="submit">Add
+                                    </button>
+
+                                    <button aria-label="Close" class="btn btn-primary"
+                                            data-dismiss="modal">Cancel
+                                    </button>
+
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+
+                </div>
+
+
+            </div>
+        </div>
+
+    </div>
+    <!-- /.container-fluid -->
+
+</div>
+<!-- End of Main Content -->
+
+<!-- Footer -->
+<footer class="sticky-footer bg-white">
+    <div class="container my-auto">
+        <div class="copyright text-center my-auto">
+            <span>Copyright &copy; Your Website 2019</span>
+        </div>
+    </div>
+</footer>
+<!-- End of Footer -->
+
+
+<!-- Scroll to Top Button-->
+<a class="scroll-to-top rounded" href="#page-top"> <i
+        class="fas fa-angle-up"></i>
+</a>
+
+<!-- Logout Modal-->
+<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="logoutModal"
+     role="dialog" tabindex="-1">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+                <button aria-label="Close" class="close" data-dismiss="modal"
+                        type="button">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">Select "Logout" below if you are ready
+                to end your current session.
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-secondary" data-dismiss="modal"
+                        type="button">Cancel
+                </button>
+                <form method="POST" th:action="@{/logout}">
+                    <button class="btn btn-primary" type="submit">Logout</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap core JavaScript-->
+<script th:src="@{/vendor/jquery/jquery.min.js}" type="text/javascript"></script>
+<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"
+        type="text/javascript"></script>
+
+<!-- Core plugin JavaScript-->
+<script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"
+        type="text/javascript"></script>
+
+<!-- Custom scripts for all pages-->
+<script th:src="@{/js/sb-admin-2.min.js}" type="text/javascript"></script>
+
+<!-- Page level plugins -->
+<script th:src="@{/vendor/datatables/jquery.dataTables.min.js}"
+        type="text/javascript"></script>
+<script th:src="@{/vendor/datatables/dataTables.bootstrap4.min.js}"
+        type="text/javascript"></script>
+
+<!-- Page level custom scripts -->
+<script th:src="@{/js/demo/datatables-demo.js}" type="text/javascript"></script>
+
+<script type="text/javascript">
+    var rh = rh || {};
+    rh.mq = rh.mq || {};
+
+    rh.mq.attachEventHandlers = function () {
+        $("#modalEmployeeForm").on('shown.bs.modal', function () {
+            $("#defaultForm-first-name").focus();
+
+
+            $("#addEmployeeButton").click(function () {
+                $("#modalEmployeeForm .modal-title").html("Add an Employee");
+                $("#modalEmployeeForm #add-employee-button").html("Add");
+
+            });
+
+
+            $("#editEmployeeButton").click(function () {
+                $("#modalEmployeeForm .modal-title").html("Edit an Employee");
+                $("#modalEmployeeForm #add-employee-button").html("Finish");
+
+            });
+
+        });
+
+    };
+
+
+    $(document).ready(function () {
+        rh.mq.attachEventHandlers();
+
+    });
+
+    $(function () {
+        var token = $("meta[name='_csrf']").attr("content");
+        var header = $("meta[name='_csrf_header']").attr("content");
+        $(document).ajaxSend(function (e, xhr, options) {
+            if (options.type === "POST") {
+                xhr.setRequestHeader(header, token);
+                console.log('CSRF POST');
+            }
+        });
+    });
+
+
+    function openEmployeeModal(id) {
+        $.ajax({
+            type: 'POST',
+            url: "/employees/edit?employeeId=" + id,
+            success: function (data) {
+                $("#employeeModalHolder").html(data);
+
+                var s1;
+                var s2;
+                var negOne = -1;
+                if (id.toString() === negOne.toString()) { // id is negative one if we're adding a new employee
+                    s1 = "Add";
+                    s2 = "Add Employee";
+                } else {
+                    s1 = "Save";
+                    s2 = "Edit Employee";
+                }
+
+                $("#employeeModalHolder #add-employee-button").html(s1);
+                $("#employeeModalHolder #add-employee-title").html(s2);
+
+                $("#modalEmployeeForm").modal("show");
+
+
+            }
+        });
+    }
+</script>
+
+</body>
+
+</html>
