@@ -5,3 +5,7 @@ from django.http import HttpResponse
 
 def index(request):
     return render(request, template_name='mainsite/index.html')
+
+
+
+# https://docs.djangoproject.com/en/2.2/intro/tutorial03/
