@@ -1,183 +1,152 @@
 <!DOCTYPE html>
-<html lang="en"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
 
+{% csrf_token %}
+{% load static %}
 
 <head>
-
     <meta charset="utf-8">
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
-    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no"
-          name="viewport">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
     <meta content="" name="description">
     <meta content="" name="author">
-    <meta name="_csrf" th:content="${_csrf.token}"/>
-    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 
     <title>Dispatcher</title>
 
     <!-- Custom fonts for this template-->
-    <link rel="stylesheet"
-          th:href="@{/vendor/fontawesome-free/css/all.min.css}" type="text/css">
+    <link rel="stylesheet" href="{% static 'mainsite/vendor/fontawesome-free/css/all.min.css' %}" type="text/css">
     <link
-            href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-            rel="stylesheet">
+        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
+        rel="stylesheet">
 
     <!-- Custom styles for this template-->
-    <link rel="stylesheet" th:href="@{/css/sb-admin-2.min.css}">
+    <link rel="stylesheet" href="{% static 'mainsite/css/sb-admin-2.min.css' %}">
 
     <!-- Custom styles for this page -->
-    <link rel="stylesheet"
-          th:href="@{/vendor/datatables/dataTables.bootstrap4.min.css}">
+    <link rel="stylesheet" href="{% static 'mainsite/vendor/datatables/dataTables.bootstrap4.min.css' %}">
 
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-          rel="stylesheet">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"
-            type="text/javascript"></script>
-    <script
-            src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/ScrollMagic.min.js"
-            type="text/javascript"></script>
-    <script
-            src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/animation.velocity.min.js"
-            type="text/javascript"></script>
-    <script
-            src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/animation.gsap.min.js"
-            type="text/javascript"></script>
-    <script
-            src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/debug.addIndicators.min.js"
-            type="text/javascript"></script>
-    <script
-            src="//cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js"
-            type="text/javascript"></script>
-    <script
-            src="//cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TimelineMax.min.js"
-            type="text/javascript"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js" type="text/javascript"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/ScrollMagic.min.js" type="text/javascript"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/animation.velocity.min.js"
+        type="text/javascript"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/animation.gsap.min.js"
+        type="text/javascript"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.5/plugins/debug.addIndicators.min.js"
+        type="text/javascript"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TweenMax.min.js" type="text/javascript"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/gsap/2.0.2/TimelineMax.min.js" type="text/javascript"></script>
 
 </head>
 
 <body id="page-top">
 
-<!-- Page Wrapper -->
-<div id="wrapper">
+    <!-- Page Wrapper -->
+    <div id="wrapper">
 
-    <!-- Sidebar -->
-    <ul
-            class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion"
-            id="accordionSidebar">
+        <!-- Sidebar -->
+        <ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
 
-        <!-- Sidebar - Brand -->
-        <a
-                class="sidebar-brand d-flex align-items-center justify-content-center"
-                href="/">
-            <div class="sidebar-brand-text mx-3">Tote DB</div>
-        </a>
+            <!-- Sidebar - Brand -->
+            <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
+                <div class="sidebar-brand-text mx-3">Tote DB</div>
+            </a>
 
-        <!-- Divider -->
-        <hr class="sidebar-divider my-0">
+            <!-- Divider -->
+            <hr class="sidebar-divider my-0">
 
-        <!-- Nav Item - Dashboard -->
-        <li class="nav-item active"><a class="nav-link" href="/"> <i
-                class="fas fa-fw fa-tachometer-alt"></i> <span>Dashboard</span></a></li>
+            <!-- Nav Item - Dashboard -->
+            <li class="nav-item active"><a class="nav-link" href="/"> <i class="fas fa-fw fa-tachometer-alt"></i>
+                    <span>Dashboard</span></a></li>
 
-        <!-- Divider -->
-        <hr class="sidebar-divider">
+            <!-- Divider -->
+            <hr class="sidebar-divider">
 
-        <!-- Heading -->
-        <div class="sidebar-heading">Interface</div>
+            <!-- Heading -->
+            <div class="sidebar-heading">Interface</div>
 
-        <!-- Nav Item - Pages Collapse Menu -->
-        <li class="nav-item"><a aria-controls="collapseTwo" aria-expanded="true"
-                                class="nav-link collapsed" data-target="#collapseTwo"
-                                data-toggle="collapse" href="#"> <i
-                class="fas fa-fw fa-address-book"></i> <span>Employees</span>
-        </a>
-            <div aria-labelledby="headingTwo" class="collapse" data-parent="#accordionSidebar"
-                 id="collapseTwo">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="/employees/list">Employee List</a>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item"><a aria-controls="collapseTwo" aria-expanded="true" class="nav-link collapsed"
+                    data-target="#collapseTwo" data-toggle="collapse" href="#"> <i
+                        class="fas fa-fw fa-address-book"></i> <span>Employees</span>
+                </a>
+                <div aria-labelledby="headingTwo" class="collapse" data-parent="#accordionSidebar" id="collapseTwo">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="/employees/list">Employee List</a>
+                    </div>
                 </div>
-            </div>
-        </li>
+            </li>
 
-        <!-- Nav Item - Utilities Collapse Menu -->
-        <li class="nav-item"><a aria-controls="collapseUtilities" aria-expanded="true"
-                                class="nav-link collapsed" data-target="#collapseUtilities"
-                                data-toggle="collapse" href="#"> <i
-                class="fas fa-fw fa-wrench"></i> <span>Utilities</span>
-        </a>
-            <div aria-labelledby="headingUtilities" class="collapse"
-                 data-parent="#accordionSidebar" id="collapseUtilities">
-                <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="/bettingAreas/list">Betting Areas</a>
-                    <a class="collapse-item" href="/machines/machineMasterList">Machine Master List</a>
+            <!-- Nav Item - Utilities Collapse Menu -->
+            <li class="nav-item"><a aria-controls="collapseUtilities" aria-expanded="true" class="nav-link collapsed"
+                    data-target="#collapseUtilities" data-toggle="collapse" href="#"> <i
+                        class="fas fa-fw fa-wrench"></i> <span>Utilities</span>
+                </a>
+                <div aria-labelledby="headingUtilities" class="collapse" data-parent="#accordionSidebar"
+                    id="collapseUtilities">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="/bettingAreas/list">Betting Areas</a>
+                        <a class="collapse-item" href="/machines/machineMasterList">Machine Master List</a>
+                    </div>
                 </div>
+            </li>
+
+            <!-- Divider -->
+            <hr class="sidebar-divider d-none d-md-block">
+
+            <!-- Sidebar Toggler (Sidebar) -->
+            <div class="text-center d-none d-md-inline">
+                <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
-        </li>
 
-        <!-- Divider -->
-        <hr class="sidebar-divider d-none d-md-block">
+        </ul>
+        <!-- End of Sidebar -->
 
-        <!-- Sidebar Toggler (Sidebar) -->
-        <div class="text-center d-none d-md-inline">
-            <button class="rounded-circle border-0" id="sidebarToggle"></button>
-        </div>
+        <!-- Content Wrapper -->
+        <div class="d-flex flex-column" id="content-wrapper">
 
-    </ul>
-    <!-- End of Sidebar -->
+            <!-- Main Content -->
+            <div id="content">
 
-    <!-- Content Wrapper -->
-    <div class="d-flex flex-column" id="content-wrapper">
+                <!-- Topbar -->
+                <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
-        <!-- Main Content -->
-        <div id="content">
-
-            <!-- Topbar -->
-            <nav
-                    class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
-
-                <!-- Sidebar Toggle (Topbar) -->
-                <button class="btn btn-link d-md-none rounded-circle mr-3"
-                        id="sidebarToggleTop">
-                    <i class="fa fa-bars"></i>
-                </button>
+                    <!-- Sidebar Toggle (Topbar) -->
+                    <button class="btn btn-link d-md-none rounded-circle mr-3" id="sidebarToggleTop">
+                        <i class="fa fa-bars"></i>
+                    </button>
 
 
-                <!-- Topbar Navbar -->
-                <ul class="navbar-nav ml-auto">
+                    <!-- Topbar Navbar -->
+                    <ul class="navbar-nav ml-auto">
 
-                    <!-- Nav Item - Search Dropdown (Visible Only XS) -->
-                    <li class="nav-item dropdown no-arrow d-sm-none"><a
-                            aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle"
-                            data-toggle="dropdown" href="#" id="searchDropdown"
-                            role="button"> <i class="fas fa-search fa-fw"></i>
-                    </a> <!-- Dropdown - Messages -->
-                        <div
-                                aria-labelledby="searchDropdown"
+                        <!-- Nav Item - Search Dropdown (Visible Only XS) -->
+                        <li class="nav-item dropdown no-arrow d-sm-none"><a aria-expanded="false" aria-haspopup="true"
+                                class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="searchDropdown"
+                                role="button"> <i class="fas fa-search fa-fw"></i>
+                            </a> <!-- Dropdown - Messages -->
+                            <div aria-labelledby="searchDropdown"
                                 class="dropdown-menu dropdown-menu-right p-3 shadow animated--grow-in">
-                            <form action="" class="form-inline mr-auto w-100 navbar-search">
-                                <div class="input-group">
-                                    <input aria-describedby="basic-addon2"
-                                           aria-label="Search"
-                                           class="form-control bg-light border-0 small" placeholder="Search for..."
-                                           type="text">
-                                    <div class="input-group-append">
-                                        <button class="btn btn-primary" type="button">
-                                            <i class="fas fa-search fa-sm"></i>
-                                        </button>
+                                <form action="" class="form-inline mr-auto w-100 navbar-search">
+                                    <div class="input-group">
+                                        <input aria-describedby="basic-addon2" aria-label="Search"
+                                            class="form-control bg-light border-0 small" placeholder="Search for..."
+                                            type="text">
+                                        <div class="input-group-append">
+                                            <button class="btn btn-primary" type="button">
+                                                <i class="fas fa-search fa-sm"></i>
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
-                            </form>
-                        </div>
-                    </li>
+                                </form>
+                            </div>
+                        </li>
 
-                    <!-- Nav Item - User Information -->
-                    <li class="nav-item dropdown no-arrow"><a
-                            aria-expanded="false" aria-haspopup="true" class="nav-link dropdown-toggle"
-                            data-toggle="dropdown" href="#" id="userDropdown"
-                            role="button"> <span
-                            class="mr-2 d-none d-lg-inline text-gray-600 small"
-                            th:text="${#authentication.name}"></span>
+                        <!-- Nav Item - User Information -->
+                        <li class="nav-item dropdown no-arrow"><a aria-expanded="false" aria-haspopup="true"
+                                class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" id="userDropdown"
+                                role="button"> <span class="mr-2 d-none d-lg-inline text-gray-600 small" th:text="${#authentication.name}"></span>
                     </a> <!-- Dropdown - User Information -->
                         <div
                                 aria-labelledby="userDropdown"
@@ -246,28 +215,30 @@
                                     </tr>
                                     </tfoot>
                                     <tbody>
-                                    <tr th:each="tempEmployee : ${employees}">
-                                        <td th:text="${tempEmployee.firstName}"/>
-                                        <td th:text="${tempEmployee.lastName}"/>
-                                        <td th:text="${tempEmployee.email}"/>
-                                        <td th:text="${tempEmployee.phoneNumber}"/>
+                                    {% for employee in employee_list %}
+                                    <tr>
+                                        <td name = "first_name" id="first_name{{ forloop.counter}}">{{ employee.first_name }}</td>
+                                        <td name = "last_name" id="last_name{{ forloop.counter}}">{{ employee.last_name }}</td>
+                                        <td name = "email" id="email{{ forloop.counter}}">{{ employee.email }}</td>
+                                        <td name = "phone_number" id="phone_number{{ forloop.counter}}">{{ employee.phone_number }}</td>
                                         <td><a
                                                 class="btn btn-primary btn-sm"
                                                 href="#"
                                                 id="editEmployeeButton"
-                                                th:onclick="'javascript:openEmployeeModal(\'' + ${tempEmployee.id} + '\');'">
+                                                onclick="openEmployeeModal( {{ employee.id }} )">
                                             <i class="material-icons">&#xE254;</i>
                                         </a>
 
                                             <a
                                                     class="btn btn-danger btn-sm"
                                                     onclick="if (!(confirm('Are you sure you want to delete?'))) return false"
-                                                    th:href="@{/employees/delete(employeeId=${tempEmployee.id})}">
+                                                    href="/employees/delete(employeeId={{ employee.id }})">
                                                 <i class="material-icons">&#xE872;</i>
                                             </a>
 
                                         </td>
                                     </tr>
+                                    {% endfor %}
                                     </tbody>
                                 </table>
 
@@ -282,18 +253,16 @@
                     <button class="btn btn-primary btn-lg"
 
                             id="addEmployeeButton"
-                            onclick="javascript:openEmployeeModal('-1');">Add Employee
+                            onclick="openEmployeeModal(-1)">Add Employee
                     </button>
 
                 </div>
 
-                <div id="employeeModalHolder" th:fragment="modalEditEmployee">
-                </div>
+                <div id="employeeModalHolder">
+                
 
                 <div aria-hidden="true" aria-labelledby="myModalLabel" class="modal fade"
-                     id="modalEmployeeForm" role="dialog" tabindex="-1"
-                     th:fragment="modalEditEmployee"
-                >
+                     id="modalEmployeeForm" role="dialog" tabindex="-1">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content">
                             <div class="modal-header text-center">
@@ -346,6 +315,7 @@
                     </div>
 
 
+                </div>
                 </div>
 
 
@@ -402,27 +372,28 @@
 </div>
 
 <!-- Bootstrap core JavaScript-->
-<script th:src="@{/vendor/jquery/jquery.min.js}" type="text/javascript"></script>
-<script th:src="@{/vendor/bootstrap/js/bootstrap.bundle.min.js}"
+<script src="{% static 'mainsite/vendor/jquery/jquery.min.js' %}" type="text/javascript"></script>
+<script src="{% static 'mainsite/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"
         type="text/javascript"></script>
 
 <!-- Core plugin JavaScript-->
-<script th:src="@{/vendor/jquery-easing/jquery.easing.min.js}"
+<script src="{% static 'mainsite/vendor/jquery-easing/jquery.easing.min.js' %}"
         type="text/javascript"></script>
 
 <!-- Custom scripts for all pages-->
-<script th:src="@{/js/sb-admin-2.min.js}" type="text/javascript"></script>
+<script src="{% static 'mainsite/js/sb-admin-2.min.js' %}" type="text/javascript"></script>
 
 <!-- Page level plugins -->
-<script th:src="@{/vendor/datatables/jquery.dataTables.min.js}"
+<script src="{% static 'mainsite/vendor/datatables/jquery.dataTables.min.js' %}"
         type="text/javascript"></script>
-<script th:src="@{/vendor/datatables/dataTables.bootstrap4.min.js}"
+<script src="{% static 'mainsite/vendor/datatables/dataTables.bootstrap4.min.js' %}"
         type="text/javascript"></script>
 
 <!-- Page level custom scripts -->
-<script th:src="@{/js/demo/datatables-demo.js}" type="text/javascript"></script>
+<script src="{% static 'mainsite/js/demo/datatables-demo.js' %}" type="text/javascript"></script>
 
 <script type="text/javascript">
+    var csrftoken = jQuery("[name=csrfmiddlewaretoken]").val();
     var rh = rh || {};
     rh.mq = rh.mq || {};
 
@@ -454,22 +425,22 @@
 
     });
 
-    $(function () {
-        var token = $("meta[name='_csrf']").attr("content");
-        var header = $("meta[name='_csrf_header']").attr("content");
-        $(document).ajaxSend(function (e, xhr, options) {
-            if (options.type === "POST") {
-                xhr.setRequestHeader(header, token);
-                console.log('CSRF POST');
-            }
-        });
-    });
+    function csrfSafeMethod(method) {
+        return(/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
+    }
 
+    $.ajaxSetup({
+        beforeSend: function(xhr, settings) {
+            if(!csrfSafeMethod(settings.type) && !this.crossDomain) {
+                xhr.setRequestHeader("X-CSRFToken", csrftoken);
+            }
+        }
+    })
 
     function openEmployeeModal(id) {
         $.ajax({
             type: 'POST',
-            url: "/employees/edit?employeeId=" + id,
+            url: "/employees/edit/" + id + "/",
             success: function (data) {
                 $("#employeeModalHolder").html(data);
 

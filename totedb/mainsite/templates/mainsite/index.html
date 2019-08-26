@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.hibernate.org/xsd/hibernate-mapping">
+<html lang="en">
 
 {% load static %}
 
@@ -11,8 +11,6 @@
           content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="description" content="">
     <meta name="author" content="">
-    <meta name="_csrf" th:content="${_csrf.token}"/>
-    <meta name="_csrf_header" th:content="${_csrf.headerName}"/>
 
     <title>Dispatcher</title>
 
@@ -67,7 +65,7 @@
             <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo"
                  data-parent="#accordionSidebar">
                 <div class="bg-white py-2 collapse-inner rounded">
-                    <a class="collapse-item" href="/employees/list">Employee List</a>
+                    <a class="collapse-item" href="/employees/list/">Employee List</a>
                 </div>
             </div>
         </li>

@@ -18,9 +18,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('', include('mainsite.urls')),
+    path('employees/', include('mainsite.urls')),
     path('admin/', admin.site.urls),
 ]
 
-machine_extra_pattern = [
-    path('save/', )
-]
