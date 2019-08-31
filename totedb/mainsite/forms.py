@@ -1,7 +1,8 @@
-from django import forms
+from django.forms import ModelForm
 from .models import Employee
 
-class SaveEmployeeForm(forms.ModelForm):
+class SaveEmployeeForm(ModelForm):
     class Meta:
         model = Employee
-        fields = ["first_name", "last_name", "email", "phone_number"]
+        fields = ['id', 'first_name', 'last_name', 'email', 'phone_number']
+        

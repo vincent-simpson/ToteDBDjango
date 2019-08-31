@@ -259,65 +259,7 @@
                 </div>
 
                 <div id="employeeModalHolder">
-                
-
-                <div aria-hidden="true" aria-labelledby="myModalLabel" class="modal fade"
-                     id="modalEmployeeForm" role="dialog" tabindex="-1">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header text-center">
-                                <h4 class="modal-title w-100 font-weight-bold" id="add-employee-title">Add
-                                    Employee</h4>
-                            </div>
-                            <form
-                                  th:action="@{/employees/save}"
-                                  th:method="POST"
-                                  th:object="${employee}">
-                                <div class="form-row">
-                                    <div
-                                            class="form-group col-md-6 justify-content-center cold-md-offset-3"
-                                            style="float: none; margin: auto;">
-                                        <input type="hidden" th:field="*{id}">
-                                        <input class="form-control" id="defaultForm-first-name"
-                                               th:field="*{firstName}" type="text"> <label
-                                            data-error="wrong" data-success="right"
-                                            for="defaultForm-first-name">First Name</label> <input
-                                            class="form-control validate" id="defaultForm-last-name"
-                                            th:field="*{lastName}" type="text">
-                                        <label data-error="wrong" data-success="right"
-                                               for="defaultForm-last-name">Last Name</label> <input
-                                            class="form-control validate" id="defaultForm-email" th:field="*{email}"
-                                            type="text"> <label
-                                            data-error="wrong" data-success="right"
-                                            for="defaultForm-email">Email</label> <input class="form-control validate"
-                                                                                         id="defaultForm-phone-number"
-                                                                                         th:field="*{phoneNumber}"
-                                                                                         type="text"> <label
-                                            data-error="wrong" data-success="right"
-                                            for="defaultForm-phone-number">Phone Number</label>
-
-
-                                    </div>
-
-                                </div>
-                                <div class="modal-footer d-flex justify-content-center">
-                                    <button class="btn btn-primary" id="add-employee-button"
-                                            type="submit">Add
-                                    </button>
-
-                                    <button aria-label="Close" class="btn btn-primary"
-                                            data-dismiss="modal">Cancel
-                                    </button>
-
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-
-
                 </div>
-                </div>
-
 
             </div>
         </div>
@@ -441,9 +383,10 @@
         $.ajax({
             type: 'POST',
             url: "/employees/edit/" + id + "/",
+            dataType: 'json',
             success: function (data) {
-                $("#employeeModalHolder").html(data);
-
+                $("#employeeModalHolder").html(data.html_form);
+                
                 var s1;
                 var s2;
                 var negOne = -1;
