@@ -20,9 +20,10 @@
                         <label data-error="wrong" data-success="right" for="last_name">Last Name</label>
                         <input class="form-control validate" id="email_{{ employee.email }}" name="email"
                             value="{{ employee.email }}" type="text"> <label data-error="wrong" data-success="right"
-                            for="email">Email</label> <input class="form-control validate"
+                            for="email">Email</label> 
+                        <input class="form-control validate"
                             id="phone_number_{{ employee.phone_number }}" name="phone_number"
-                            value={{ employee.phone_number }} type="text"> <label data-error="wrong"
+                            value="{{ employee.phone_number }}" type="text"> <label data-error="wrong"
                             data-success="right" for="phone_number">Phone Number</label>
                     </div>
 

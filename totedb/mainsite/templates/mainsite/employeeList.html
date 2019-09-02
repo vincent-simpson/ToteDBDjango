@@ -231,8 +231,11 @@
 
                                             <a
                                                     class="btn btn-danger btn-sm"
-                                                    onclick="if (!(confirm('Are you sure you want to delete?'))) return false"
-                                                    href="/employees/delete(employeeId={{ employee.id }})">
+                                                    onclick="if (!(confirm('Are you sure you want to delete?'))) return false;
+                                                     deleteEmployee( {{ employee.id}} );"
+                                                    href="#"
+                                                    style="cursor:pointer;"
+                                                    >
                                                 <i class="material-icons">&#xE872;</i>
                                             </a>
 
@@ -253,7 +256,7 @@
                     <button class="btn btn-primary btn-lg"
 
                             id="addEmployeeButton"
-                            onclick="openEmployeeModal(-1)">Add Employee
+                            onclick="openEmployeeModal(0)">Add Employee
                     </button>
 
                 </div>
@@ -380,30 +383,38 @@
     })
 
     function openEmployeeModal(id) {
+            id = Number(id);
+            $.ajax({
+                type: 'POST',
+                url: '/employees/add/' + id + '/',
+                dataType: 'json',
+                success: function (data) {
+                    $("#employeeModalHolder").html(data.html_form);
+                
+                    var s1;
+                    var s2;
+                    if (id === 0) { // id is zero if we're adding a new employee
+                        s1 = "Add";
+                        s2 = "Add Employee";
+                    } else {
+                        s1 = "Save";
+                        s2 = "Edit Employee";
+                    }
+
+                    $("#employeeModalHolder #add-employee-button").html(s1);
+                    $("#employeeModalHolder #add-employee-title").html(s2);
+
+                    $("#modalEmployeeForm").modal("show");
+                }
+            });
+    }
+
+    function deleteEmployee(id) {
         $.ajax({
             type: 'POST',
-            url: "/employees/edit/" + id + "/",
-            dataType: 'json',
-            success: function (data) {
-                $("#employeeModalHolder").html(data.html_form);
-                
-                var s1;
-                var s2;
-                var negOne = -1;
-                if (id.toString() === negOne.toString()) { // id is negative one if we're adding a new employee
-                    s1 = "Add";
-                    s2 = "Add Employee";
-                } else {
-                    s1 = "Save";
-                    s2 = "Edit Employee";
-                }
-
-                $("#employeeModalHolder #add-employee-button").html(s1);
-                $("#employeeModalHolder #add-employee-title").html(s2);
-
-                $("#modalEmployeeForm").modal("show");
-
-
+            url: '/employees/delete/' + id + '/',
+            success: function () {
+                $(location).attr('href', '/employees/list');
             }
         });
     }
